@@ -12,6 +12,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test(){
-        int i = 2;
+        int i = 5;
     }
 }
