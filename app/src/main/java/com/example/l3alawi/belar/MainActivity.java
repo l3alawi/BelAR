@@ -1,17 +1,32 @@
 package com.example.l3alawi.belar;
 
+import android.app.Activity;
+import android.opengl.GLSurfaceView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends Activity {
+    private GLSurfaceView glView;                   // use GLSurfaceView
+    // Call back when the activity is started, to initialize the view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
+        glView.setRenderer(new MyGLRenderer(this)); // Use a custom renderer
+        this.setContentView(glView);                // This activity sets to GLSurfaceView
     }
 
-    private void test(){
-        int i = 5;
+    // Call back when the activity is going into the background
+    @Override
+    protected void onPause() {
+        super.onPause();
+        glView.onPause();
+    }
+
+    // Call back after onPause()
+    @Override
+    protected void onResume() {
+        super.onResume();
+        glView.onResume();
     }
 }
