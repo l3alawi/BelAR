@@ -2,11 +2,16 @@ package com.example.l3alawi.belar;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseIntArray;
+import android.view.TextureView;
+import android.widget.Button;
+
+import org.opencv.android.OpenCVLoader;
 
 public class MainActivity extends Activity {
-    private GLSurfaceView glView;                   // use GLSurfaceView
+    /* private GLSurfaceView glView;                   // use GLSurfaceView
     // Call back when the activity is started, to initialize the view
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +33,22 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         glView.onResume();
+    } */
+
+    private static final String TAG = "MainActivity";
+
+    static {
+        if(OpenCVLoader.initDebug()){
+            Log.d(TAG, "OpenCV mzyaaaaaaaan");
+        }
+        else{
+            Log.d(TAG,"seeer t9awed");
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 }
