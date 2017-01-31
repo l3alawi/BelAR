@@ -9,6 +9,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
+
+import org.rajawali3d.loader.LoaderOBJ;
+import org.rajawali3d.loader.awd.ABaseObjectBlockParser;
+import org.rajawali3d.renderer.RajawaliRenderer;
+
+import static org.rajawali3d.util.RawShaderLoader.mContext;
+
 /**
  * Created by mohamed on 24/01/2017.
  */
@@ -86,6 +93,7 @@ public class PhotoCube {
 
     // Render the shape
     public void draw(GL10 gl) {
+
         gl.glFrontFace(GL10.GL_CCW);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -95,25 +103,26 @@ public class PhotoCube {
 
         // front
         gl.glPushMatrix();
-        gl.glTranslatef(0f, 0f, cubeHalfSize);
+        gl.glRotatef(0.0f, 1.0f,0.0f, 0.0f);
+        gl.glTranslatef(5f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[0]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
+        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 3);
         gl.glPopMatrix();
 
         // left
         gl.glPushMatrix();
-        gl.glRotatef(270.0f, 0f, 1f, 0f);
+        gl.glRotatef(90.0f, 0f, 1f, 0f);
         gl.glTranslatef(0f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[1]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
+        //gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 4, 4);
         gl.glPopMatrix();
 
         // back
         gl.glPushMatrix();
-        gl.glRotatef(180.0f, 0f, 1f, 0f);
+        gl.glRotatef(60.0f, 0f, 1f, 0f);
         gl.glTranslatef(0f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[2]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
+        //gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 8, 4);
         gl.glPopMatrix();
 
         // right
@@ -121,23 +130,23 @@ public class PhotoCube {
         gl.glRotatef(90.0f, 0f, 1f, 0f);
         gl.glTranslatef(0f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[3]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
+        //gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
         gl.glPopMatrix();
 
         // top
         gl.glPushMatrix();
-        gl.glRotatef(270.0f, 1f, 0f, 0f);
+        gl.glRotatef(180.0f, 1f, 0f, 0f);
         gl.glTranslatef(0f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[4]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
+       // gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 16, 4);
         gl.glPopMatrix();
 
         // bottom
         gl.glPushMatrix();
-        gl.glRotatef(90.0f, 1f, 0f, 0f);
+        gl.glRotatef(210.0f, 1f, 0f, 0f);
         gl.glTranslatef(0f, 0f, cubeHalfSize);
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textureIDs[5]);
-        gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
+        //gl.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 20, 4);
         gl.glPopMatrix();
 
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);

@@ -14,7 +14,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
-    private PhotoCube cube;     // (NEW)
+     private PhotoCube cube;     // (NEW)
     private static float angleCube = 0;     // rotational angle in degree for cube
     private static float speedCube = 0.5f; // rotational speed for cube
 
@@ -26,7 +26,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     // Call back when the surface is first created or re-created.
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set color's clear-value to black
+        //gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set color's clear-value to black
         gl.glClearDepthf(1.0f);            // Set depth's clear-value to farthest
         gl.glEnable(GL10.GL_DEPTH_TEST);   // Enables depth-buffer for hidden surface removal
         gl.glDepthFunc(GL10.GL_LEQUAL);    // The type of depth testing to do
@@ -35,7 +35,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         gl.glDisable(GL10.GL_DITHER);      // Disable dithering for better performance
 
         // Setup Texture, each time the surface is created (NEW)
-        //cube.loadTexture(gl);             // Load images into textures (NEW)
+        cube.loadTexture(gl);             // Load images into textures (NEW)
         gl.glEnable(GL10.GL_TEXTURE_2D);  // Enable texture (NEW)
     }
 
@@ -69,11 +69,16 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // ----- Render the Cube -----
         gl.glLoadIdentity();                  // Reset the model-view matrix
-        gl.glTranslatef(0.0f, 0.0f, -6.0f);   // Translate into the screen
+        gl.glTranslatef(0.0f, 0.0f, -10.0f);   // Translate into the screen
         gl.glRotatef(angleCube, 0.15f, 1.0f, 0.3f); // Rotate
         cube.draw(gl);
 
+
+
         // Update the rotational angle after each refresh.
-        angleCube += speedCube;
+        //angleCube += speedCube;
     }
+
+
+
 }

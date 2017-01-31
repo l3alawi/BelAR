@@ -1,13 +1,18 @@
 package com.example.l3alawi.belar;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.SurfaceView;
 import android.view.TextureView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import org.opencv.android.BaseLoaderCallback;
@@ -45,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     } */
 
     private static final String TAG = "MainActivity";
+
+    private GLSurfaceView glView;
+
+
     JavaCameraView javaCameraView;
     Mat mRgba, imgRay, imgKenny;
     BaseLoaderCallback mLoaderCallBack = new BaseLoaderCallback(this) {
@@ -71,11 +80,33 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
+
+
         setContentView(R.layout.activity_main);
-        javaCameraView = (JavaCameraView)findViewById(R.id.java_camera_view);
+
+        glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
+
+        glView.setEGLConfigChooser( 8, 8, 8, 8, 16, 0 );
+        glView.getHolder().setFormat( PixelFormat.TRANSLUCENT );
+
+        glView.setRenderer(new MyGLRenderer(this)); // Use a custom renderer
+        setContentView(glView);
+
+
+
+        javaCameraView = new JavaCameraView(this, -1);
         javaCameraView.setVisibility(SurfaceView.VISIBLE);
         javaCameraView.setCvCameraViewListener(this);
+
+        addContentView( javaCameraView, new ActionBar.LayoutParams( ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT ) );
     }
+
+
 
     @Override
     protected void onPause() {
@@ -123,6 +154,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         mRgba = inputFrame.rgba();
         Imgproc.cvtColor(mRgba,imgRay,Imgproc.COLOR_RGB2GRAY);
         Imgproc.Canny(imgRay,imgKenny,50,150);
-        return imgKenny;
+        return mRgba;
     }
 }
